@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Portfolio V2\\\\app\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Portfolio V2\\\\components\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Portfolio V2\\\\public\\\\sequence\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Portfolio V2\\\\lib\")",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
