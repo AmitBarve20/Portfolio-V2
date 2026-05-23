@@ -1,8 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+
+// ── Skill bars ─────────────────────────────────────────────────────────────────────────
 
 const skills = [
   { label: "Frontend Engineering", pct: 95 },
@@ -20,7 +22,6 @@ const stack = [
 function SkillBar({ label, pct, delay }: { label: string; pct: number; delay: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
-
   return (
     <div ref={ref} className="mb-5">
       <div className="flex justify-between mb-2">
@@ -40,16 +41,160 @@ function SkillBar({ label, pct, delay }: { label: string; pct: number; delay: nu
   );
 }
 
+// ── Polaroid stack ─────────────────────────────────────────────────────────────────────
+
+interface StackCard {
+  src: string;
+  caption: string;
+  rotation: number;
+}
+
+const STACK: StackCard[] = [
+  { src: "/DP.jpeg",          caption: "the maker",       rotation: -5   },
+  { src: "/image%201.jpeg",   caption: "creative fuel",   rotation:  7.2 },
+  { src: "/image%202.jpg",    caption: "late nights",     rotation: -4   },
+  { src: "/image%203.jpg",    caption: "workspace",       rotation:  6   },
+  { src: "/image%204.jpg",    caption: "always shipping", rotation: -8   },
+  { src: "/image%205.jpg",    caption: "the process",     rotation:  5   },
+  { src: "/image%207.png",    caption: "always building", rotation: -6   },
+];
+
+// Visual transform applied per layer depth (0 = top card)
+const LAYER_CFG = [
+  { x:  0, y:  0, scale: 1,    opacity: 1   },
+  { x: 11, y:  8, scale: 0.96, opacity: 1   },
+  { x: -9, y: 15, scale: 0.91, opacity: 1   },
+  { x:  6, y: 22, scale: 0.86, opacity: 0.6 },
+] as const;
+
+const HIDDEN_CFG = { x: 0, y: 28, scale: 0.82, opacity: 0 };
+const CARD_W = 218;
+
+function PolaroidCard({ card, isTop }: { card: StackCard; isTop: boolean }) {
+  return (
+    <div
+      style={{
+        width: CARD_W,
+        background: "linear-gradient(148deg, #faf8f3 0%, #f3efe5 100%)",
+        padding: "9px",
+        transition: "box-shadow 0.35s ease",
+        boxShadow: isTop
+          ? "0 24px 64px rgba(0,0,0,0.72), 0 8px 22px rgba(0,0,0,0.42)"
+          : "0 6px 24px rgba(0,0,0,0.55)",
+      }}
+    >
+      {/* Square image */}
+      <div
+        className="relative overflow-hidden bg-neutral-300"
+        style={{ aspectRatio: "1 / 1" }}
+      >
+        <Image
+          src={card.src}
+          alt={card.caption}
+          fill
+          className="object-cover"
+          sizes={`${CARD_W}px`}
+        />
+      </div>
+    </div>
+  );
+}
+
+function PolaroidStack() {
+  const [count, setCount] = useState(0);
+  const [exitingIdx, setExitingIdx] = useState<number | null>(null);
+  const n = STACK.length;
+  const topIdx = count % n;
+
+  // Use effectiveTopIdx so beneath cards start moving the moment the top card exits
+  const effectiveTopIdx = exitingIdx !== null ? (topIdx + 1) % n : topIdx;
+
+  const dismiss = () => {
+    if (exitingIdx !== null) return;
+    setExitingIdx(topIdx);
+    setTimeout(() => {
+      setCount((c) => c + 1);
+      setExitingIdx(null);
+    }, 440);
+  };
+
+  return (
+    <div className="relative" style={{ width: 300, height: 350 }}>
+      {STACK.map((card, physIdx) => {
+        const isExiting = physIdx === exitingIdx;
+        const layer = isExiting
+          ? -1
+          : (physIdx - effectiveTopIdx + n) % n;
+        const isTop = layer === 0;
+
+        const layerConf = layer >= 0 ? (LAYER_CFG[layer] ?? HIDDEN_CFG) : HIDDEN_CFG;
+        const animConf = isExiting
+          ? { x: 380, y: -55, scale: 1, opacity: 0, rotate: card.rotation + 26 }
+          : { ...layerConf, rotate: card.rotation };
+
+        return (
+          <motion.div
+            key={physIdx}
+            className="absolute inset-0 flex items-center justify-center"
+            initial={animConf}
+            animate={animConf}
+            transition={
+              isExiting
+                ? { duration: 0.42, ease: [0.36, 0, 0.66, -0.56] }
+                : { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+            }
+            style={{
+              zIndex: isExiting ? 15 : Math.max(0, 10 - layer),
+              pointerEvents: isTop ? "auto" : "none",
+              cursor: isTop ? "pointer" : "default",
+            }}
+            onClick={isTop ? dismiss : undefined}
+          >
+            <PolaroidCard card={card} isTop={isTop} />
+          </motion.div>
+        );
+      })}
+
+      {/* Progress dots + tap hint */}
+      <div className="absolute -bottom-9 inset-x-0 flex flex-col items-center gap-2">
+        <div className="flex gap-[5px]">
+          {STACK.map((_, i) => (
+            <div
+              key={i}
+              className="rounded-full transition-all duration-300"
+              style={{
+                width: i === effectiveTopIdx % n ? 14 : 5,
+                height: 5,
+                background:
+                  i === effectiveTopIdx % n
+                    ? "var(--accent)"
+                    : "rgba(255,255,255,0.18)",
+              }}
+            />
+          ))}
+        </div>
+        <span
+          className="text-[9px] tracking-[0.28em] uppercase"
+          style={{ color: "rgba(255,255,255,0.2)" }}
+        >
+          tap to flip
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// ── About section ──────────────────────────────────────────────────────────────────────
+
 export default function About() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section id="about" ref={ref} className="relative px-6 md:px-10 py-24 md:py-36">
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-        {/* ── left: bio ── */}
+        {/* ── left: bio + polaroid stack ── */}
         <div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -80,8 +225,9 @@ export default function About() {
             <p>
               I&apos;m Sahil — a creative developer who sits at the boundary between
               design and engineering. I believe the best digital products feel
-              effortless because they were <em className="text-white/60 not-italic">built</em> effortlessly, with obsessive
-              attention to every interaction.
+              effortless because they were{" "}
+              <em className="text-white/60 not-italic">built</em> effortlessly,
+              with obsessive attention to every interaction.
             </p>
             <p>
               With 4+ years of experience shipping products for startups and
@@ -91,21 +237,14 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* photo */}
+          {/* Polaroid stack (replaces single static photo) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 relative w-full max-w-[300px] aspect-square rounded-2xl overflow-hidden border border-white/[0.07]"
+            className="mt-12 pb-10"
           >
-            <Image
-              src="/DP.jpeg"
-              alt="Sahil Gawa"
-              fill
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              sizes="300px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            <PolaroidStack />
           </motion.div>
         </div>
 
@@ -115,7 +254,6 @@ export default function About() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* skill bars */}
           <p className="text-[10px] tracking-[0.3em] uppercase mb-8 font-medium text-white/20">
             Proficiency
           </p>
@@ -125,7 +263,6 @@ export default function About() {
             ))}
           </div>
 
-          {/* tech stack grid */}
           <p className="text-[10px] tracking-[0.3em] uppercase mb-6 font-medium text-white/20">
             Tech Stack
           </p>
@@ -145,7 +282,6 @@ export default function About() {
             ))}
           </div>
 
-          {/* availability badge */}
           <div className="mt-12 flex items-center gap-3">
             <span className="relative flex h-2 w-2">
               <span
