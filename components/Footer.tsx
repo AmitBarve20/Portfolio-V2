@@ -3,10 +3,9 @@
 import { motion } from "framer-motion";
 
 const socials = [
-  { label: "GitHub", href: "https://github.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Twitter", href: "https://twitter.com" },
-  { label: "Dribbble", href: "https://dribbble.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/amitt-barve/" },
+  { label: "Instagram", href: "https://www.instagram.com/amit.barve_/" },
+  { label: "Behance", href: "https://www.behance.net/amitbarve" },
 ];
 
 export default function Footer() {
@@ -32,7 +31,7 @@ export default function Footer() {
             <span className="text-white group-hover:text-white/80 transition-colors">
               together
             </span>
-            <span style={{ color: "var(--accent)" }}>.</span>
+            <span style={{ color: "var(--accent)" }}> :)</span>
           </span>
         </a>
       </div>
@@ -42,8 +41,8 @@ export default function Footer() {
 
       {/* bottom row */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <p className="text-xs text-white/20 tracking-wider">
-          © 2025 Sahil Gawa — Built with Next.js &amp; Framer Motion
+        <p className="text-xs text-white/60 tracking-wider">
+          © 2026 Amit Barve -  Made with 💓
         </p>
 
         <div className="flex items-center gap-6">
@@ -53,7 +52,7 @@ export default function Footer() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs tracking-widest uppercase text-white/20 hover:text-white transition-colors duration-300 font-medium"
+              className="text-xs tracking-widest uppercase text-white/60 hover:text-white transition-colors duration-300 font-medium"
             >
               {label}
             </a>

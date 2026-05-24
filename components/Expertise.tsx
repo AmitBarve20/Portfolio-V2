@@ -15,26 +15,21 @@ import {
 const TEXT_LINES: Array<Array<{ text: string; hi: boolean }>> = [
   [
     { text: "I design ", hi: false },
-    { text: "scalable digital experiences", hi: true },
+    { text: "production-ready digital products", hi: true },
   ],
   [
-    { text: "through ", hi: false },
-    { text: "product thinking", hi: true },
+    { text: "backed by ", hi: false },
+    { text: "2 years of experience", hi: true },
     { text: ", ", hi: false },
-    { text: "interaction design", hi: true },
+    { text: "working across", hi: false },
     { text: ",", hi: false },
   ],
   [
-    { text: "design systems", hi: true },
-    { text: ", and ", hi: false },
-    { text: "AI-assisted workflows", hi: true },
-    { text: " —", hi: false },
-  ],
-  [{ text: "transforming complex problems into intuitive", hi: false }],
-  [
-    { text: "and ", hi: false },
-    { text: "production-ready products.", hi: true },
-  ],
+    { text: "SaaS platforms", hi: true },
+    { text: ",", hi: true },
+    { text: " AI tools", hi: true },
+    { text: " & ", hi: true },
+  { text: "mobile applications.", hi: true }],
 ];
 
 // x/y are the CENTRE of each badge (translate(-50%,-50%) applied in the component)

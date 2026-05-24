@@ -85,9 +85,11 @@ function OverlayTexts({
           Creative Product Designer
         </motion.p>
 
-        <h1 className="font-black leading-none tracking-[-0.04em] text-white"
-          style={{ fontSize: "clamp(3.5rem, 11vw, 9rem)" }}>
-          Amit<br /> Barve
+        <h1 className="font-black leading-none tracking-[-0.0em] text-white"
+          style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)", 
+                  textShadow: "0 2px 10px rgba(0,0,0,0.25)"
+          }}>
+          Amit Barve
         </h1>
 
         <div className="mt-8 flex items-center gap-4">
@@ -106,19 +108,20 @@ function OverlayTexts({
       >
         <p className="text-[10px] tracking-[0.3em] uppercase mb-3 font-medium"
           style={{ color: "var(--accent)" }}>
-          — What I Do
+          — PRODUCT DESIGN
         </p>
         <h2
           className="font-bold leading-[1.1] tracking-tight text-white"
-          style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)" }}
+          style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)" }}
         >
-          I build digital<br />experiences.
+          Designing products
+<br /> that scale.
         </h2>
         <p className="mt-5 text-sm leading-relaxed text-white/60 font-light">
           I Design Products That Solve Real Problems, Not Just Create Beautiful Screens
         </p>
         <div className="mt-8 flex gap-3">
-          {["Figma", "Figma Make", "Google Stitch", "Framer"].map((t) => (
+          {["SaaS Products", "User Experience", "Scalable Systems"].map((t) => (
             <span
               key={t}
               className="text-[10px] tracking-widest uppercase border border-white/30 px-3 py-1.5 rounded-full text-white/50"
@@ -136,19 +139,20 @@ function OverlayTexts({
       >
         <p className="text-[10px] tracking-[0.3em] uppercase mb-3 font-medium"
           style={{ color: "var(--accent)" }}>
-          My Craft —
+          MY APPROACH —
         </p>
         <h2
           className="font-bold leading-[1.1] tracking-tight text-white"
-          style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)" }}
+          style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)" }}
         >
-          Bridging design<br />&amp; engineering.
+          2+ years building<br /> user-centered products.
         </h2>
-        <p className="mt-5 text-sm leading-relaxed text-white/60 font-light">
-          Transforming complex workflows into intuitive, scalable experiences through  product strategy, design systems, and engineering-aware design.
+        <p className="mt-5 text-sm leading-relaxed text-white/80 font-light">
+      Creating seamless, functional, and visually refined digital products.
+
         </p>
         <div className="mt-8 flex gap-3 justify-end">
-          {["Product Thinking", "Design Systems", "Interaction Design"].map((t) => (
+          {["Figma", "Design Systems", "Google Stitch"].map((t) => (
             <span
               key={t}
               className="text-[10px] tracking-widest uppercase border border-white/30 px-3 py-1.5 rounded-full text-white/60"

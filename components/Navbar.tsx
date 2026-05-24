@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const links = [
@@ -11,15 +11,8 @@ const links = [
 
 export default function Navbar() {
   const { scrollY } = useScroll();
-  const [scrolled, setScrolled] = useState(false);
-
   /* fade-in nav opacity on first 80px scroll */
   const navBg = useTransform(scrollY, [0, 80], [0, 1]);
-
-  useEffect(() => {
-    const unsub = scrollY.on("change", (v) => setScrolled(v > 40));
-    return unsub;
-  }, [scrollY]);
 
   return (
     <motion.header
@@ -47,7 +40,7 @@ export default function Navbar() {
       </a>
 
       {/* nav links */}
-      <nav className="relative z-10 hidden md:flex items-center gap-8">
+      <nav className="absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex items-center gap-8">
         {links.map(({ label, href }) => (
           <a
             key={label}
@@ -61,11 +54,18 @@ export default function Navbar() {
 
       {/* CTA */}
       <a
-        href="mailto:amitbarve2003@gmail.com"
+        href="https://docs.google.com/document/d/1usAEBP37pGR95JOsTO5JfTN985KiGm9H_wc9uoObvzg/edit?tab=t.0"
+        target="_blank"
+        rel="noopener noreferrer"
         className="relative z-10 hidden md:flex items-center gap-2 text-xs tracking-widest uppercase font-medium text-black px-5 py-2.5 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_24px_rgba(200,255,0,0.4)]"
         style={{ background: "var(--accent)" }}
       >
-        Contact Me
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Download CV
       </a>
 
       {/* mobile hamburger placeholder */}

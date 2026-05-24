@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Sahil Gawa — Creative Developer",
+  title: "Amit Barve - Product Designer",
   description:
     "Bridging design and engineering. Building cinematic digital experiences that matter.",
   openGraph: {
-    title: "Sahil Gawa — Creative Developer",
+    title: "Amit Barve — Creative Developer",
     description: "Building cinematic digital experiences.",
     type: "website",
   },

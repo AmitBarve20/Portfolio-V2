@@ -46,7 +46,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     let cur = 0;
     const id = setInterval(() => {
-      const step = cur < 90 ? 0.32 : 0.55;
+      const step = cur < 90 ? 1.2 : 1.5;
       cur = Math.min(cur + step, 100);
       setProgress(parseFloat(cur.toFixed(1)));
       if (cur >= 100) {

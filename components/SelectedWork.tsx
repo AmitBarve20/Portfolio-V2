@@ -27,26 +27,26 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     id: "bondxe",
-    index: "01",
+    index: "",
     title: "BondXe",
-    subtitle: "App Design Case Study",
-    tag: "Social Experience Platform",
-    year: "2024",
+    subtitle: "",
+    tag: "Social Networking Application",
+    year: "",
     description:
-      "Redefining social connections through shared experiences, group interactions, and intelligent matching systems.",
+      "Designed a social experience application that helps users discover communities, build meaningful connections, and engage through shared real-world experiences.",
     accent: "#8b5cf6",
     glowRgb: "139,92,246",
     href: "https://www.behance.net/gallery/247840347/BondXe-Social-Event-Based-Networking-App",
   },
   {
     id: "mirrortrade",
-    index: "02",
+    index: "",
     title: "MirrorTrade",
-    subtitle: "Fintech UX Case Study",
-    tag: "Copy Trading Platform",
-    year: "2024",
+    subtitle: "",
+    tag: "Copy Trading Application",
+    year: "",
     description:
-      "Designing a scalable and accessible trading experience focused on clarity, trust, and user confidence.",
+      "Designed a copy trading application that enables users to follow experienced traders, track performance transparently, and invest with confidence.",
     accent: "#d4a017",
     glowRgb: "212,160,23",
     href: "https://www.behance.net/gallery/228201027/MirrorTrade-Copy-trading-Platform-UIUx-case-study",
@@ -389,7 +389,7 @@ export default function SelectedWork() {
     <section
       id="work"
       ref={sectionRef}
-      className="relative overflow-hidden py-28 md:py-36"
+      className="relative overflow-hidden py-28 md:pb-36"
       style={{ background: "#050505" }}
     >
       {/* top edge — blends from ScrollySection's #121212 */}
@@ -484,7 +484,7 @@ export default function SelectedWork() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: "clamp(3rem, 9vw, 8.5rem)",
+            fontSize: "clamp(3rem, 7vw, 8.5rem)",
             fontWeight: 800,
             lineHeight: 0.9,
             letterSpacing: "-0.03em",

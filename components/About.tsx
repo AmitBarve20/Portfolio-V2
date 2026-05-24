@@ -7,16 +7,16 @@ import Image from "next/image";
 // ── Skill bars ─────────────────────────────────────────────────────────────────────────
 
 const skills = [
-  { label: "Frontend Engineering", pct: 95 },
-  { label: "Creative Development", pct: 90 },
-  { label: "UI / UX Design", pct: 80 },
-  { label: "Backend & APIs", pct: 72 },
+  { label: "Figma", pct: 95 },
+  { label: "Framer", pct: 93 },
+  { label: "User Experience Design", pct: 90 },
+  { label: "Design Systems", pct: 85 },
 ];
 
 const stack = [
-  "Next.js", "React", "TypeScript", "Framer Motion",
-  "Three.js", "GSAP", "Tailwind CSS", "Node.js",
-  "Figma", "WebGL / GLSL", "Prisma", "PostgreSQL",
+  "Figma", "Framer", "Wireframing", "Prototyping",
+  "Design Systems", "Interaction Design", "UX Research", "Information Architecture",
+  "Usability Testing", "Product Thinking", "AI Workflow","Adobe Creative Suite", "Figma Make", "Google Stitch", "Claude Design", "UX Pilot",
 ];
 
 function SkillBar({ label, pct, delay }: { label: string; pct: number; delay: number }) {
@@ -205,9 +205,9 @@ export default function About() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="font-bold leading-[1.1] tracking-tight text-white mb-8"
-            style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}
+            style={{ fontSize: "clamp(2rem, 3vw, 2.4rem)" }}
           >
-            Designing at the<br />intersection of code<br />&amp; craft.
+            Designing products where<br /> strategy, UX, and visual craft<br /> come together.
           </motion.h2>
 
           <motion.div
@@ -217,17 +217,13 @@ export default function About() {
             className="space-y-4 text-sm leading-relaxed text-white/40 font-light"
           >
             <p>
-              I&apos;m Sahil — a creative developer who sits at the boundary between
-              design and engineering. I believe the best digital products feel
-              effortless because they were{" "}
-              <em className="text-white/60 not-italic">built</em> effortlessly,
-              with obsessive attention to every interaction.
-            </p>
-            <p>
-              With 4+ years of experience shipping products for startups and
-              established brands, I specialise in scroll-driven experiences,
-              WebGL visuals, and high-performance React architectures that
-              scale without sacrificing beauty.
+              I am a Product Designer with 2+ years of experience delivering user-centered design solutions across mobile, web,
+and SaaS products.{" "}
+              <em className="text-white/60 not-italic">Specialized in </em>tokenized design systems, interaction design, and end-to-end product
+ownership, with proven success in improving design consistency, reducing dev handoff time, and shipping
+intuitive products at scale.
+              Adept at cross-functional collaboration and leveraging AI-assisted design
+workflows to accelerate delivery and innovation.
             </p>
           </motion.div>
 
