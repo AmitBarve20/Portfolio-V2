@@ -129,13 +129,13 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                     boxShadow: "0 0 6px rgba(200,255,0,0.4)",
                   }}
                 />
-                {/* Nodes */}
+                {/* Nodes + labels */}
                 <div className="absolute left-0 right-0 flex justify-between" style={{ top: -5 }}>
                   {STAGES.map((s, i) => {
                     const active = i === stageIdx;
                     const past = i < stageIdx;
                     return (
-                      <motion.div key={s.label} className="flex flex-col items-center">
+                      <motion.div key={s.label} className="flex flex-col items-center gap-2">
                         <motion.div
                           className="w-3 h-3 rounded-full"
                           animate={{
@@ -159,30 +159,19 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                             transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut" }}
                           />
                         )}
+                        <motion.span
+                          className="text-[8px] tracking-[0.2em] font-medium whitespace-nowrap"
+                          animate={{
+                            color: active ? "#c8ff00" : past ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.12)",
+                          }}
+                          transition={{ duration: 0.35 }}
+                        >
+                          {s.label}
+                        </motion.span>
                       </motion.div>
                     );
                   })}
                 </div>
-              </div>
-
-              {/* Stage labels row */}
-              <div className="flex justify-between">
-                {STAGES.map((s, i) => {
-                  const active = i === stageIdx;
-                  const past = i < stageIdx;
-                  return (
-                    <motion.span
-                      key={s.label}
-                      className="text-[8px] tracking-[0.2em] font-medium"
-                      animate={{
-                        color: active ? "#c8ff00" : past ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.12)",
-                      }}
-                      transition={{ duration: 0.35 }}
-                    >
-                      {s.label}
-                    </motion.span>
-                  );
-                })}
               </div>
             </div>
 

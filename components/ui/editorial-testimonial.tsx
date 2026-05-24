@@ -7,27 +7,23 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 const testimonials = [
   {
     id: 1,
-    quote: "The attention to detail and creative vision transformed our brand identity completely.",
-    author: "Sarah Chen",
-    role: "Creative Director",
-    company: "Studio Forma",
-    image: "https://plus.unsplash.com/premium_photo-1689551671548-79ff30459d2a?w=400&auto=format&fit=crop&q=80",
+    quote: "We had the pleasure of working with Amit at Webeeyo Softwares Pvt. Ltd., where he played a key role in 4–5 major projects. His strong design skills, quick understanding of requirements, and consistent delivery of high-quality, modern designs impressed both our team and clients. Amit’s proactive approach and dedication made him a valuable asset. We highly recommend him as a skilled and reliable UI/UX designer..",
+    author: "Pranav Shelke",
+    role: "CEO",
+    company: "Webeeyo Software",
   },
   {
     id: 2,
-    quote: "Working with them felt like a true creative partnership from day one.",
-    author: "Marcus Webb",
-    role: "Head of Design",
-    company: "Minimal Co",
-    image: "https://images.unsplash.com/photo-1649123245135-4db6ead931b5?w=400&auto=format&fit=crop&q=80",
+    quote: "Working with Amit on our full application was a fantastic experience. He delivered a beautifully designed, highly functional app that truly captured our vision. His creativity, professionalism, and attention to detail made a major impact on our project's success. We couldn’t have asked for a better designer!",
+    author: "Ganesh Zade",
+    role: "CEO",
+    company: "MirrorTrade",
   },
   {
     id: 3,
-    quote: "They understand that great design is invisible yet unforgettable.",
-    author: "Elena Voss",
-    role: "Art Director",
-    company: "Pixel & Co",
-    image: "https://images.unsplash.com/photo-1701615004837-40d8573b6652?w=400&auto=format&fit=crop&q=80",
+    quote: "Amit has been editing for my clients for over a year and I'm really impressed with his work, especially his attention to detail and openness to make any changes which I request. He always edits on time and is a fast worker which has been really valuable for the growth of my business. I'd recommend Amit to anyone looking for a fantastic video editor.",
+    author: "Krrish Bhagrthiya",
+    role: "Agency Owner",
   },
 ]
 
@@ -55,7 +51,7 @@ export default function TestimonialsEditorial() {
   const current = testimonials[active]
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-6 py-16">
+    <div className="w-full max-w-5xl mx-auto px-8 py-16">
       {/* large index */}
       <div className="flex items-start gap-8">
         <span
@@ -68,7 +64,7 @@ export default function TestimonialsEditorial() {
         <div className="flex-1 pt-6">
           {/* quote */}
           <blockquote
-            className={`text-2xl md:text-3xl font-light leading-relaxed text-foreground tracking-tight transition-all duration-300 ${
+            className={`text-lg md:text-xl font-light leading-relaxed text-foreground tracking-tight transition-all duration-300 ${
               isTransitioning ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
             }`}
           >
@@ -82,15 +78,6 @@ export default function TestimonialsEditorial() {
             }`}
           >
             <div className="flex items-center gap-4">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-foreground/10 group-hover:ring-foreground/30 transition-all duration-300">
-                <Image
-                  src={current.image}
-                  alt={current.author}
-                  fill
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                  sizes="48px"
-                />
-              </div>
               <div>
                 <p className="font-medium text-foreground">{current.author}</p>
                 <p className="text-sm text-muted-foreground">

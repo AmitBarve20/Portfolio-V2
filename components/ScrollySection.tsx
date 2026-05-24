@@ -61,7 +61,7 @@ function OverlayTexts({
         style={{ opacity: ctaOp }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-[10px] tracking-[0.3em] uppercase text-white/30 font-medium">
+        <span className="text-[10px] tracking-[0.3em] uppercase text-white/60 font-medium">
           Scroll
         </span>
         <div className="relative w-px h-10 overflow-hidden bg-white/10">

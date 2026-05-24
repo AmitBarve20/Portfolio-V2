@@ -173,12 +173,6 @@ function PolaroidStack() {
             />
           ))}
         </div>
-        <span
-          className="text-[9px] tracking-[0.28em] uppercase"
-          style={{ color: "rgba(255,255,255,0.2)" }}
-        >
-          tap to flip
-        </span>
       </div>
     </div>
   );
