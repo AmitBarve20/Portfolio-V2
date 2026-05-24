@@ -84,7 +84,7 @@ function MirrorTradeVisual() {
 /* ── Project card ─────────────────────────────────────────────────── */
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
 
   /* 3-D tilt */
   const rotXRaw = useMotionValue(0);
@@ -99,7 +99,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const glowBg = useMotionTemplate`radial-gradient(520px circle at ${glowX}% ${glowY}%, rgba(${rgb},0.15), transparent 68%)`;
 
   const onMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
       const el = cardRef.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
