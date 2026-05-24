@@ -57,160 +57,12 @@ const PROJECTS: Project[] = [
 
 function BondXeVisual() {
   return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        background: "linear-gradient(145deg, #1c0d4a 0%, #0d0820 55%, #200d54 100%)",
-        overflow: "hidden",
-      }}
-    >
-      {/* ambient glow */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          top: "-10%",
-          left: "10%",
-          width: "80%",
-          height: "85%",
-          background:
-            "radial-gradient(ellipse, rgba(139,92,246,0.32) 0%, transparent 70%)",
-          filter: "blur(48px)",
-          pointerEvents: "none",
-        }}
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+      <img
+        src="/BondXe.gif"
+        alt="BondXe app preview"
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
       />
-
-      {/* Avatar rings */}
-      {[
-        { left: "22%", top: "20%", size: 76, hex: "#7c3aed", op: 0.9 },
-        { left: "47%", top: "13%", size: 65, hex: "#8b5cf6", op: 0.75 },
-        { left: "41%", top: "37%", size: 60, hex: "#a78bfa", op: 0.82 },
-      ].map((av, i) => (
-        <div
-          key={i}
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            left: av.left,
-            top: av.top,
-            width: av.size,
-            height: av.size,
-            borderRadius: "50%",
-            background: `radial-gradient(circle at 36% 36%, ${av.hex}88, ${av.hex}2a)`,
-            border: `1.5px solid ${av.hex}55`,
-            opacity: av.op,
-            boxShadow: `0 0 28px ${av.hex}55, inset 0 0 16px ${av.hex}22`,
-          }}
-        />
-      ))}
-
-      {/* Dashed connector lines */}
-      <svg
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          overflow: "visible",
-        }}
-      >
-        <line
-          x1="36%" y1="32%" x2="53%" y2="24%"
-          stroke="rgba(139,92,246,0.38)"
-          strokeWidth={1}
-          strokeDasharray="5 5"
-        />
-        <line
-          x1="39%" y1="37%" x2="51%" y2="52%"
-          stroke="rgba(139,92,246,0.28)"
-          strokeWidth={1}
-          strokeDasharray="5 5"
-        />
-      </svg>
-
-      {/* Match score card */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "17%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "60%",
-          padding: "14px 18px",
-          borderRadius: 18,
-          background: "rgba(255,255,255,0.055)",
-          border: "1px solid rgba(139,92,246,0.38)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-        }}
-      >
-        <p
-          style={{
-            fontSize: 10,
-            color: "rgba(167,139,250,0.85)",
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            marginBottom: 7,
-          }}
-        >
-          Compatibility Score
-        </p>
-        <p
-          style={{
-            fontSize: 32,
-            fontWeight: 700,
-            color: "#fff",
-            lineHeight: 1,
-            marginBottom: 10,
-          }}
-        >
-          94%
-        </p>
-        <div
-          style={{
-            height: 4,
-            borderRadius: 2,
-            background: "rgba(255,255,255,0.1)",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              width: "94%",
-              height: "100%",
-              background: "linear-gradient(90deg, #7c3aed, #a78bfa)",
-              borderRadius: 2,
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Floating notification pills */}
-      {[
-        { text: "💬  Group Chat", top: "11%", right: "5%" },
-        { text: "🎯  14 Matches", top: "58%", right: "3%" },
-      ].map((pill) => (
-        <div
-          key={pill.text}
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: pill.top,
-            right: pill.right,
-            padding: "6px 14px",
-            borderRadius: 20,
-            background: "rgba(255,255,255,0.06)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            fontSize: 11,
-            color: "rgba(255,255,255,0.68)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {pill.text}
-        </div>
-      ))}
     </div>
   );
 }
@@ -218,167 +70,13 @@ function BondXeVisual() {
 /* ── MirrorTrade mockup ───────────────────────────────────────────── */
 
 function MirrorTradeVisual() {
-  const pts: [number, number][] = [
-    [0, 172], [40, 148], [82, 153], [128, 120], [170, 98],
-    [212, 104], [254, 76], [296, 55], [332, 43], [372, 23], [400, 14],
-  ];
-  const lineD = pts.map(([x, y]) => `${x},${y}`).join(" L ");
-  const fillD = `M ${lineD} L 400,180 L 0,180 Z`;
-
   return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        background: "linear-gradient(160deg, #0e0900 0%, #1c1300 48%, #090700 100%)",
-        overflow: "hidden",
-      }}
-    >
-      {/* Ambient warm glow */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: "0",
-          left: "5%",
-          width: "90%",
-          height: "65%",
-          background:
-            "radial-gradient(ellipse, rgba(212,160,23,0.14) 0%, transparent 70%)",
-          filter: "blur(52px)",
-          pointerEvents: "none",
-        }}
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+      <img
+        src="/Mirror%20Trade.gif"
+        alt="MirrorTrade app preview"
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
       />
-
-      {/* Metric cards */}
-      <div
-        style={{
-          position: "absolute",
-          top: "10%",
-          left: "7%",
-          right: "7%",
-          display: "flex",
-          gap: 10,
-        }}
-      >
-        {[
-          { label: "Portfolio", value: "+18.4%", gold: true },
-          { label: "Win Rate", value: "76%" },
-          { label: "Trades", value: "243" },
-        ].map((s) => (
-          <div
-            key={s.label}
-            style={{
-              flex: 1,
-              padding: "10px 12px",
-              borderRadius: 13,
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.07)",
-            }}
-          >
-            <p
-              style={{
-                fontSize: 9,
-                color: "rgba(255,255,255,0.32)",
-                letterSpacing: "0.09em",
-                textTransform: "uppercase",
-                marginBottom: 5,
-              }}
-            >
-              {s.label}
-            </p>
-            <p
-              style={{
-                fontSize: 17,
-                fontWeight: 700,
-                color: s.gold ? "#d4a017" : "rgba(255,255,255,0.88)",
-              }}
-            >
-              {s.value}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      {/* Chart */}
-      <div
-        style={{
-          position: "absolute",
-          top: "38%",
-          left: "3%",
-          right: "3%",
-          height: "33%",
-        }}
-      >
-        <svg
-          viewBox="0 0 400 180"
-          preserveAspectRatio="none"
-          style={{ width: "100%", height: "100%" }}
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient id="sw-chart-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#d4a017" stopOpacity={0.34} />
-              <stop offset="100%" stopColor="#d4a017" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <path d={fillD} fill="url(#sw-chart-grad)" />
-          <path
-            d={`M ${lineD}`}
-            fill="none"
-            stroke="#d4a017"
-            strokeWidth={2.2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <circle cx={400} cy={14} r={4} fill="#d4a017" />
-          <circle cx={400} cy={14} r={9} fill="rgba(212,160,23,0.2)" />
-        </svg>
-      </div>
-
-      {/* Top traders list */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "7%",
-          left: "7%",
-          right: "7%",
-        }}
-      >
-        <p
-          style={{
-            fontSize: 9,
-            color: "rgba(255,255,255,0.28)",
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            marginBottom: 9,
-          }}
-        >
-          Top Traders
-        </p>
-        {[
-          { name: "Alex K.", ret: "+34.2%" },
-          { name: "Marie L.", ret: "+28.7%" },
-        ].map((t) => (
-          <div
-            key={t.name}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "7px 0",
-              borderBottom: "1px solid rgba(255,255,255,0.055)",
-            }}
-          >
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.55)" }}>
-              {t.name}
-            </span>
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#d4a017" }}>
-              {t.ret}
-            </span>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
@@ -400,12 +98,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const rgb = project.glowRgb;
   const glowBg = useMotionTemplate`radial-gradient(520px circle at ${glowX}% ${glowY}%, rgba(${rgb},0.15), transparent 68%)`;
 
-  /* Mockup parallax */
-  const mockX = useMotionValue(0);
-  const mockY = useMotionValue(0);
-  const mockXSp = useSpring(mockX, { stiffness: 110, damping: 28 });
-  const mockYSp = useSpring(mockY, { stiffness: 110, damping: 28 });
-
   const onMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       const el = cardRef.current;
@@ -417,10 +109,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       rotYRaw.set(rx * 10);
       glowX.set(((e.clientX - r.left) / r.width) * 100);
       glowY.set(((e.clientY - r.top) / r.height) * 100);
-      mockX.set(rx * 20);
-      mockY.set(ry * 20);
     },
-    [rotXRaw, rotYRaw, glowX, glowY, mockX, mockY],
+    [rotXRaw, rotYRaw, glowX, glowY],
   );
 
   const onLeave = useCallback(() => {
@@ -428,9 +118,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     rotYRaw.set(0);
     glowX.set(50);
     glowY.set(50);
-    mockX.set(0);
-    mockY.set(0);
-  }, [rotXRaw, rotYRaw, glowX, glowY, mockX, mockY]);
+  }, [rotXRaw, rotYRaw, glowX, glowY]);
 
   const entryVariant = {
     hidden: { opacity: 0, y: 64, filter: "blur(4px)" },
@@ -448,8 +136,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
   return (
     <motion.div variants={entryVariant} style={{ perspective: "1400px" }}>
-      <motion.div
+      <motion.a
         ref={cardRef}
+        href={project.href}
+        target="_blank"
+        rel="noopener noreferrer"
         onMouseMove={onMove}
         onMouseLeave={onLeave}
         whileHover={{
@@ -467,11 +158,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           border: "1px solid rgba(255,255,255,0.07)",
           position: "relative",
           cursor: "pointer",
-          minHeight: 620,
           display: "flex",
           flexDirection: "column",
           willChange: "transform",
           boxShadow: "0 16px 48px rgba(0,0,0,0.5)",
+          textDecoration: "none",
+          color: "inherit",
         }}
       >
         {/* Dynamic cursor glow */}
@@ -487,25 +179,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           }}
         />
 
-        {/* ── Mockup visual area (top 58%) ── */}
+        {/* ── Mockup visual area ── */}
         <div
           style={{
             position: "relative",
-            height: "58%",
+            width: "100%",
+            aspectRatio: "1 / 1",
             flexShrink: 0,
             overflow: "hidden",
           }}
         >
-          <motion.div
-            style={{
-              position: "absolute",
-              inset: "-12%",
-              x: mockXSp,
-              y: mockYSp,
-            }}
-          >
+          <div style={{ position: "absolute", inset: 0 }}>
             {project.id === "bondxe" ? <BondXeVisual /> : <MirrorTradeVisual />}
-          </motion.div>
+          </div>
 
           {/* Gradient fade into card body */}
           <div
@@ -660,9 +346,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </span>
 
             {/* CTA arrow circle */}
-            <motion.a
-              href={project.href}
-              aria-label={`View ${project.title} case study`}
+            <motion.div
+              aria-hidden="true"
               whileHover={{ scale: 1.14, rotate: -45 }}
               transition={{ type: "spring", stiffness: 420, damping: 22 }}
               style={{
@@ -676,16 +361,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 background: `rgba(${rgb},0.1)`,
                 color: project.accent,
                 fontSize: 20,
-                textDecoration: "none",
                 flexShrink: 0,
                 lineHeight: 1,
               }}
             >
               →
-            </motion.a>
+            </motion.div>
           </div>
         </div>
-      </motion.div>
+      </motion.a>
     </motion.div>
   );
 }
