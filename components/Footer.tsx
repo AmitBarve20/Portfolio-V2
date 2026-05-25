@@ -10,10 +10,10 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative px-6 md:px-10 pt-20 pb-10 overflow-hidden">
+    <footer id="contact" className="relative px-6 md:px-10 pt-16 pb-10 overflow-hidden">
 
       {/* big contact line */}
-      <div className="mb-16">
+      <div className="mb-10">
         <p className="text-[10px] tracking-[0.3em] uppercase mb-8 font-medium"
           style={{ color: "var(--accent)" }}>
           Get In Touch

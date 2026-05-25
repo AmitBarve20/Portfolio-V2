@@ -389,7 +389,7 @@ export default function SelectedWork() {
     <section
       id="work"
       ref={sectionRef}
-      className="relative overflow-hidden py-28 md:pb-36"
+      className="relative overflow-hidden py-16 md:pt-28 md:pb-36"
       style={{ background: "#050505" }}
     >
       {/* top edge — blends from ScrollySection's #121212 */}
@@ -462,7 +462,7 @@ export default function SelectedWork() {
       />
 
       {/* ── Section header ── */}
-      <div className="text-center mb-16 md:mb-20 px-6">
+      <div className="text-center mb-10 md:mb-20 px-6">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -519,7 +519,7 @@ export default function SelectedWork() {
       </div>
 
       {/* ── Show all projects CTA ── */}
-      <div className="flex justify-center mt-14 md:mt-16 px-6">
+      <div className="flex justify-center mt-8 md:mt-16 px-6">
         <motion.a
           href="https://www.behance.net/amitbarve"
           target="_blank"

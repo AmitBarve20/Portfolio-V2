@@ -152,13 +152,13 @@ export default function Projects() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="work" ref={ref} className="relative px-6 md:px-10 py-24 md:py-36">
+    <section id="work" ref={ref} className="relative px-6 md:px-10 py-16 md:py-36">
       {/* section header */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end gap-6 md:gap-0 justify-between"
+        className="mb-10 md:mb-20 flex flex-col md:flex-row md:items-end gap-6 md:gap-0 justify-between"
       >
         <div>
           <p className="text-[10px] tracking-[0.3em] uppercase mb-4 font-medium"
@@ -191,7 +191,7 @@ export default function Projects() {
       </motion.div>
 
       {/* subtle divider */}
-      <div className="mt-24 h-px w-full bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+      <div className="mt-10 h-px w-full bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
     </section>
   );
 }

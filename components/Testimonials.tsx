@@ -9,7 +9,7 @@ export default function Testimonials() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="relative px-6 md:px-10 py-24 md:py-32" style={{ background: "#0a0a0a" }}>
+    <section ref={ref} className="relative px-6 md:px-10 py-16 md:py-32" style={{ background: "#0a0a0a" }}>
       {/* top edge — blends from Expertise's #000000 */}
       <div
         aria-hidden="true"
@@ -53,7 +53,7 @@ export default function Testimonials() {
         <TestimonialsEditorial />
       </motion.div>
 
-      <div className="mt-24 h-px w-full bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+      <div className="mt-10 h-px w-full bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
     </section>
   );
 }

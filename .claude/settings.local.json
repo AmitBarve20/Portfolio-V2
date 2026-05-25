@@ -6,7 +6,9 @@
       "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Portfolio V2\\\\public\\\\sequence\")",
       "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Portfolio V2\\\\lib\")",
       "Bash(npx tsc *)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(Get-ChildItem -Path \"d:\\\\Portfolio V2\\\\components\" -File)",
+      "Bash(Select-Object Name)"
     ]
   }
 }

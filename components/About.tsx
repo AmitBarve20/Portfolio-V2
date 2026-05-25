@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 
@@ -68,13 +68,11 @@ const LAYER_CFG = [
 ] as const;
 
 const HIDDEN_CFG = { x: 0, y: 28, scale: 0.82, opacity: 0 };
-const CARD_W = 218;
-
-function PolaroidCard({ card, isTop }: { card: StackCard; isTop: boolean }) {
+function PolaroidCard({ card, isTop, cardW }: { card: StackCard; isTop: boolean; cardW: number }) {
   return (
     <div
       style={{
-        width: CARD_W,
+        width: cardW,
         background: "linear-gradient(148deg, #faf8f3 0%, #f3efe5 100%)",
         padding: "9px",
         transition: "box-shadow 0.35s ease",
@@ -93,7 +91,7 @@ function PolaroidCard({ card, isTop }: { card: StackCard; isTop: boolean }) {
           alt={card.caption}
           fill
           className="object-cover"
-          sizes={`${CARD_W}px`}
+          sizes={`${cardW}px`}
         />
       </div>
     </div>
@@ -103,23 +101,62 @@ function PolaroidCard({ card, isTop }: { card: StackCard; isTop: boolean }) {
 function PolaroidStack() {
   const [count, setCount] = useState(0);
   const [exitingIdx, setExitingIdx] = useState<number | null>(null);
+  const [cardW, setCardW] = useState(218);
+  const isDismissing = useRef(false);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
   const n = STACK.length;
   const topIdx = count % n;
+
+  useEffect(() => {
+    const update = () => {
+      // Section has px-6 (24px) padding each side = 48px total
+      const available = Math.min(window.innerWidth - 48, 300);
+      setCardW(Math.max(150, Math.floor(available * (218 / 300))));
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const stackW = Math.floor(cardW * (300 / 218));
+  const stackH = Math.floor(cardW * (350 / 218));
 
   // Use effectiveTopIdx so beneath cards start moving the moment the top card exits
   const effectiveTopIdx = exitingIdx !== null ? (topIdx + 1) % n : topIdx;
 
   const dismiss = () => {
-    if (exitingIdx !== null) return;
+    if (isDismissing.current) return;
+    isDismissing.current = true;
     setExitingIdx(topIdx);
     setTimeout(() => {
       setCount((c) => c + 1);
       setExitingIdx(null);
+      isDismissing.current = false;
     }, 440);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    // Dismiss on clear horizontal swipe; tap is handled by onClick
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      dismiss();
+    }
+  };
+
   return (
-    <div className="relative" style={{ width: 300, height: 350 }}>
+    <div
+      className="relative"
+      style={{ width: stackW, height: stackH }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {STACK.map((card, physIdx) => {
         const isExiting = physIdx === exitingIdx;
         const layer = isExiting
@@ -129,7 +166,7 @@ function PolaroidStack() {
 
         const layerConf = layer >= 0 ? (LAYER_CFG[layer] ?? HIDDEN_CFG) : HIDDEN_CFG;
         const animConf = isExiting
-          ? { x: 380, y: -55, scale: 1, opacity: 0, rotate: card.rotation + 26 }
+          ? { x: stackW + 80, y: -55, scale: 1, opacity: 0, rotate: card.rotation + 26 }
           : { ...layerConf, rotate: card.rotation };
 
         return (
@@ -150,12 +187,12 @@ function PolaroidStack() {
             }}
             onClick={isTop ? dismiss : undefined}
           >
-            <PolaroidCard card={card} isTop={isTop} />
+            <PolaroidCard card={card} isTop={isTop} cardW={cardW} />
           </motion.div>
         );
       })}
 
-      {/* Progress dots + tap hint */}
+      {/* Progress dots */}
       <div className="absolute -bottom-9 inset-x-0 flex flex-col items-center gap-2">
         <div className="flex gap-[5px]">
           {STACK.map((_, i) => (
@@ -185,8 +222,8 @@ export default function About() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="about" ref={ref} className="relative px-6 md:px-10 py-24 md:py-36">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+    <section id="about" ref={ref} className="relative px-6 md:px-10 py-16 md:py-36">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-start">
 
         {/* ── left: bio + polaroid stack ── */}
         <div>
@@ -232,7 +269,7 @@ workflows to accelerate delivery and innovation.
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-12 pb-10"
+            className="mt-8 pb-8"
           >
             <PolaroidStack />
           </motion.div>
@@ -247,7 +284,7 @@ workflows to accelerate delivery and innovation.
           <p className="text-[10px] tracking-[0.3em] uppercase mb-8 font-medium text-white/20">
             Proficiency
           </p>
-          <div className="mb-14">
+          <div className="mb-10">
             {skills.map((s, i) => (
               <SkillBar key={s.label} {...s} delay={0.1 + i * 0.1} />
             ))}
@@ -272,7 +309,7 @@ workflows to accelerate delivery and innovation.
             ))}
           </div>
 
-          <div className="mt-12 flex items-center gap-3">
+          <div className="mt-8 flex items-center gap-3">
             <span className="relative flex h-2 w-2">
               <span
                 className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
