@@ -118,7 +118,7 @@ function OverlayTexts({
 <br /> that scale.
         </h2>
         <p className="mt-5 text-sm leading-relaxed text-white/60 font-light">
-          I Design Products That Solve Real Problems, Not Just Create Beautiful Screens
+          I design products that solve real problems, not just create beautiful screens
         </p>
         <div className="mt-8 flex gap-3">
           {["SaaS Products", "User Experience", "Scalable Systems"].map((t) => (
