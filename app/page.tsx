@@ -7,6 +7,7 @@ import About from "@/components/About";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import PreloaderController from "@/components/PreloaderController";
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Testimonials />
       <About />
       <Footer />
+      <Analytics />
     </main>
   );
 }

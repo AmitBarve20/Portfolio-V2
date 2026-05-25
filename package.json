@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@nanostores/react": "^0.7.3",
+    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^11.3.8",
     "lucide-react": "^1.16.0",
     "nanostores": "^0.10.3",
