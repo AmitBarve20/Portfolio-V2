@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 const testimonials = [
   {
     id: 1,
-    quote: "We had the pleasure of working with Amit at Webeeyo Softwares Pvt. Ltd., where he played a key role in 4–5 major projects. His strong design skills, quick understanding of requirements, and consistent delivery of high-quality, modern designs impressed both our team and clients. Amit's proactive approach and dedication made him a valuable asset. We highly recommend him as a skilled and reliable UI/UX designer..",
+    quote: "We had the pleasure of working with Amit at Webeeyo Softwares Pvt. Ltd., where he played a key role in 5 major projects. His strong design skills, quick understanding of requirements, and consistent delivery of high-quality, modern designs impressed both our team and clients. Amit's proactive approach and dedication made him a valuable asset. We highly recommend him as a skilled and reliable UI/UX designer..",
     author: "Pranav Shelke",
     role: "CEO",
     company: "Webeeyo Software",
