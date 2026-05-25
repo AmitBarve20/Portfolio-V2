@@ -242,7 +242,7 @@ export default function ScrollySection() {
 
   return (
     <div ref={containerRef} className="relative h-[500vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-screen w-full">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full"
