@@ -166,12 +166,15 @@ function OverlayTexts({
   );
 }
 
+const LOOKAHEAD = 30; // frames to load ahead of current scroll position
+
 /* ─── main export ───────────────────────────────────────────────── */
 export default function ScrollySection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const currentFrameRef = useRef(0);
+  const loadAheadRef = useRef<(from: number) => void>(() => {});
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -183,7 +186,7 @@ export default function ScrollySection() {
   /* draw a single frame at physical-pixel resolution */
   const renderFrame = useCallback((index: number) => {
     const canvas = canvasRef.current;
-    const img = imagesRef.current[index];
+    const img = imagesRef.current[index] ?? null;
     if (!canvas || !img?.complete || !img.naturalWidth) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -210,53 +213,41 @@ export default function ScrollySection() {
     return () => ro.disconnect();
   }, [resizeCanvas]);
 
-  /* preload all frames — prioritise first frame, then batch-load the rest
-     during idle time so the main thread isn't saturated on startup */
+  /* Scroll-driven lazy loading — load frame 0 immediately, then load
+     frames on-demand as the user scrolls, staying LOOKAHEAD frames ahead. */
   useEffect(() => {
-    const images: HTMLImageElement[] = new Array(FRAME_COUNT);
+    const images: (HTMLImageElement | null)[] = new Array(FRAME_COUNT).fill(null);
+    imagesRef.current = images;
+
+    function loadFrame(i: number) {
+      if (images[i]) return;
+      const img = new Image();
+      img.src = frameUrl(i);
+      images[i] = img;
+    }
+
+    function loadAhead(from: number) {
+      const end = Math.min(from + LOOKAHEAD, FRAME_COUNT);
+      for (let i = from; i < end; i++) loadFrame(i);
+    }
+
+    loadAheadRef.current = loadAhead;
 
     const first = new Image();
     first.src = frameUrl(0);
-    first.onload = () => {
-      images[0] = first;
-      imagesRef.current = images;
-      renderFrame(0);
-
-      /* Batch-load remaining frames in chunks of 8 during idle periods.
-         This avoids flooding the network with 143 simultaneous requests
-         and keeps the main thread free for the preloader animation. */
-      let next = 1;
-      function loadBatch() {
-        const end = Math.min(next + 8, FRAME_COUNT);
-        for (; next < end; next++) {
-          const img = new Image();
-          img.src = frameUrl(next);
-          images[next] = img;
-        }
-        if (next < FRAME_COUNT) {
-          if (typeof requestIdleCallback !== "undefined") {
-            requestIdleCallback(loadBatch, { timeout: 300 });
-          } else {
-            setTimeout(loadBatch, 50);
-          }
-        }
-      }
-
-      if (typeof requestIdleCallback !== "undefined") {
-        requestIdleCallback(loadBatch, { timeout: 300 });
-      } else {
-        setTimeout(loadBatch, 50);
-      }
-    };
+    first.onload = () => renderFrame(0);
     images[0] = first;
-    imagesRef.current = images;
+
+    // Pre-warm the initial lookahead so frame 1–29 are in flight right away
+    loadAhead(1);
   }, [renderFrame]);
 
-  /* sync scroll → frame */
+  /* sync scroll → frame + trigger ahead-loading */
   useMotionValueEvent(frameIndex, "change", (latest) => {
     const idx = Math.min(Math.max(Math.round(latest), 0), FRAME_COUNT - 1);
     currentFrameRef.current = idx;
     renderFrame(idx);
+    loadAheadRef.current(idx);
   });
 
   return (

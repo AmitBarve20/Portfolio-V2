@@ -50,13 +50,13 @@ interface StackCard {
 }
 
 const STACK: StackCard[] = [
-  { src: "/DP.jpeg",          caption: "the maker",       rotation: -5   },
-  { src: "/image%201.jpeg",   caption: "creative fuel",   rotation:  7.2 },
-  { src: "/image%202.jpg",    caption: "late nights",     rotation: -4   },
-  { src: "/image%203.jpg",    caption: "workspace",       rotation:  6   },
-  { src: "/image%204.jpg",    caption: "always shipping", rotation: -8   },
-  { src: "/image%205.jpg",    caption: "the process",     rotation:  5   },
-  { src: "/image%207.png",    caption: "always building", rotation: -6   },
+  { src: "/DP.avif",          caption: "the maker",       rotation: -5   },
+  { src: "/image%201.avif",   caption: "creative fuel",   rotation:  7.2 },
+  { src: "/image%202.avif",   caption: "late nights",     rotation: -4   },
+  { src: "/image%203.avif",   caption: "workspace",       rotation:  6   },
+  { src: "/image%204.avif",   caption: "always shipping", rotation: -8   },
+  { src: "/image%205.avif",   caption: "the process",     rotation:  5   },
+  { src: "/image%207.avif",   caption: "always building", rotation: -6   },
 ];
 
 // Visual transform applied per layer depth (0 = top card)
