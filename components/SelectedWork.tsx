@@ -77,7 +77,7 @@ const PROJECTS: Project[] = [
       "I designed a grid-based scheduling system that makes conflicts visually obvious, enables drag-and-drop assignment, and provides auto-scheduling with human oversight.",
     accent: "#8b5cf6",
     glowRgb: "139,92,246",
-    href: "#",
+    href: "https://www.behance.net/gallery/250046299/Match-Scheduling-Officiating-System",
   },
 ];
 
