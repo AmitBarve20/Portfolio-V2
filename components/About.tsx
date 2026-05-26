@@ -68,7 +68,17 @@ const LAYER_CFG = [
 ] as const;
 
 const HIDDEN_CFG = { x: 0, y: 28, scale: 0.82, opacity: 0 };
-function PolaroidCard({ card, isTop, cardW }: { card: StackCard; isTop: boolean; cardW: number }) {
+function PolaroidCard({
+  card,
+  isTop,
+  cardW,
+  priority,
+}: {
+  card: StackCard;
+  isTop: boolean;
+  cardW: number;
+  priority?: boolean;
+}) {
   return (
     <div
       style={{
@@ -92,6 +102,8 @@ function PolaroidCard({ card, isTop, cardW }: { card: StackCard; isTop: boolean;
           fill
           className="object-cover"
           sizes={`${cardW}px`}
+          priority={priority}
+          loading={priority ? undefined : "lazy"}
         />
       </div>
     </div>
@@ -187,7 +199,7 @@ function PolaroidStack() {
             }}
             onClick={isTop ? dismiss : undefined}
           >
-            <PolaroidCard card={card} isTop={isTop} cardW={cardW} />
+            <PolaroidCard card={card} isTop={isTop} cardW={cardW} priority={physIdx === 0} />
           </motion.div>
         );
       })}

@@ -7,6 +7,7 @@ import {
   useMotionTemplate,
   useSpring,
   useInView,
+  useReducedMotion,
   type MotionValue,
 } from "framer-motion";
 
@@ -116,13 +117,14 @@ function GrainOverlay() {
 
 /* ── Ambient pulsing glow ─────────────────────────────────────────── */
 
-function AmbientGlow() {
+function AmbientGlow({ visible }: { visible: boolean }) {
+  const reducedMotion = useReducedMotion();
   return (
     <motion.div
       aria-hidden="true"
       className="absolute inset-0 pointer-events-none"
-      animate={{ opacity: [0.6, 1, 0.6] }}
-      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      animate={!reducedMotion && visible ? { opacity: [0.6, 1, 0.6] } : { opacity: 0.8 }}
+      transition={{ duration: 5, repeat: !reducedMotion && visible ? Infinity : 0, ease: "easeInOut" }}
       style={{
         background:
           "radial-gradient(ellipse 52% 42% at 50% 50%, rgba(200,255,0,0.038) 0%, transparent 70%)",
@@ -160,10 +162,12 @@ interface BadgeProps {
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
   visible: boolean;
+  sectionVisible: boolean;
 }
 
-function Badge({ label, x, y, delay, index, mouseX, mouseY, visible }: BadgeProps) {
+function Badge({ label, x, y, delay, index, mouseX, mouseY, visible, sectionVisible }: BadgeProps) {
   const elRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
 
   /* Magnetic spring */
   const magX = useMotionValue(0);
@@ -200,12 +204,13 @@ function Badge({ label, x, y, delay, index, mouseX, mouseY, visible }: BadgeProp
   const floatAmt = 6 + (index % 3) * 3;
   const floatDur = 3.2 + (index % 5) * 0.45;
 
+  /* Stop float animation when section is off-screen or user prefers reduced motion */
+  const floatAnimate =
+    !reducedMotion && sectionVisible
+      ? { y: [0, -floatAmt, 0] }
+      : { y: 0 };
+
   return (
-    /*
-     * Plain div: CSS `translate(-50%,-50%)` centres the badge on x%/y%.
-     * All FM transforms live on the child motion.div so they never
-     * collide with the centering transform.
-     */
     <div
       style={{
         position: "absolute",
@@ -221,17 +226,17 @@ function Badge({ label, x, y, delay, index, mouseX, mouseY, visible }: BadgeProp
         initial={{ opacity: 0, scale: 0.72 }}
         animate={visible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.72 }}
         transition={{
-          duration: 0.6,
-          delay: delay * 0.38 + 0.35,
+          duration: reducedMotion ? 0 : 0.6,
+          delay: reducedMotion ? 0 : delay * 0.38 + 0.35,
           ease: [0.22, 1, 0.36, 1],
         }}
       >
-        {/* Continuous float */}
+        {/* Continuous float — paused when offscreen */}
         <motion.div
-          animate={{ y: [0, -floatAmt, 0] }}
+          animate={floatAnimate}
           transition={{
             duration: floatDur,
-            repeat: Infinity,
+            repeat: !reducedMotion && sectionVisible ? Infinity : 0,
             ease: "easeInOut",
             delay: delay * 0.25,
           }}
@@ -239,11 +244,15 @@ function Badge({ label, x, y, delay, index, mouseX, mouseY, visible }: BadgeProp
           {/* Visual pill + hover glow */}
           <motion.div
             ref={elRef}
-            whileHover={{
-              scale: 1.1,
-              boxShadow:
-                "0 0 28px rgba(200,255,0,0.2), 0 0 48px rgba(200,255,0,0.08), 0 4px 24px rgba(0,0,0,0.6)",
-            }}
+            whileHover={
+              reducedMotion
+                ? {}
+                : {
+                    scale: 1.1,
+                    boxShadow:
+                      "0 0 28px rgba(200,255,0,0.2), 0 0 48px rgba(200,255,0,0.08), 0 4px 24px rgba(0,0,0,0.6)",
+                  }
+            }
             transition={{ type: "spring", stiffness: 360, damping: 24 }}
             style={{
               padding: "7px 17px",
@@ -365,7 +374,7 @@ export default function Expertise() {
       {/* ── Background layers ── */}
       <ConcentricGrid />
       <GrainOverlay />
-      <AmbientGlow />
+      <AmbientGlow visible={visible} />
       <MouseGlow mx={smoothX} my={smoothY} />
 
       {/* Top + bottom edge fade */}
@@ -395,6 +404,7 @@ export default function Expertise() {
               mouseX={rawX}
               mouseY={rawY}
               visible={visible}
+              sectionVisible={visible}
             />
           </div>
         ))}

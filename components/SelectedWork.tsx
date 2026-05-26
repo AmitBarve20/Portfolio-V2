@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import {
   motion,
   useMotionValue,
@@ -81,28 +81,66 @@ const PROJECTS: Project[] = [
   },
 ];
 
-/* ── BondXe mockup ────────────────────────────────────────────────── */
+/* ── Lazy video: loads & plays only when in viewport ─────────────── */
+
+function LazyVideo({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Assign src only on first intersection to trigger the network load
+          if (!video.src) {
+            video.src = src;
+            video.load();
+          }
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: "200px", threshold: 0.1 },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [src]);
+
+  return (
+    <video
+      ref={videoRef}
+      loop
+      muted
+      playsInline
+      preload="none"
+      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+    />
+  );
+}
+
+/* ── Visuals ──────────────────────────────────────────────────────── */
 
 function BondXeVisual() {
   return (
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-      <img
-        src="/BondXe.gif"
-        alt="BondXe app preview"
-        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-      />
+      <LazyVideo src="/BondXe.webm" />
     </div>
   );
 }
 
-/* ── MirrorTrade mockup ───────────────────────────────────────────── */
-
 function MirrorTradeVisual() {
   return (
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+      {/* GIF: lazy loaded natively; convert to .webm for further savings */}
       <img
         src="/Mirror%20Trade.gif"
         alt="MirrorTrade app preview"
+        loading="lazy"
+        decoding="async"
         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
       />
     </div>
@@ -112,11 +150,7 @@ function MirrorTradeVisual() {
 function DootVisual() {
   return (
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-      <img
-        src="/Doot.gif"
-        alt="Doot app preview"
-        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-      />
+      <LazyVideo src="/Doot.webm" />
     </div>
   );
 }
@@ -124,14 +158,11 @@ function DootVisual() {
 function MatchSchedulingVisual() {
   return (
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-      <img
-        src="/Match%20Scheduling.gif"
-        alt="Match Scheduling System preview"
-        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-      />
+      <LazyVideo src="/Match%20Scheduling.webm" />
     </div>
   );
 }
+
 /* ── Project card ─────────────────────────────────────────────────── */
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -211,7 +242,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           cursor: "pointer",
           display: "flex",
           flexDirection: "column",
-          willChange: "transform",
           boxShadow: "0 16px 48px rgba(0,0,0,0.5)",
           textDecoration: "none",
           color: "inherit",

@@ -210,11 +210,11 @@ export default function ScrollySection() {
     return () => ro.disconnect();
   }, [resizeCanvas]);
 
-  /* preload all frames — prioritise first frame */
+  /* preload all frames — prioritise first frame, then batch-load the rest
+     during idle time so the main thread isn't saturated on startup */
   useEffect(() => {
     const images: HTMLImageElement[] = new Array(FRAME_COUNT);
 
-    /* load frame 0 first for instant first-paint */
     const first = new Image();
     first.src = frameUrl(0);
     first.onload = () => {
@@ -222,11 +222,30 @@ export default function ScrollySection() {
       imagesRef.current = images;
       renderFrame(0);
 
-      /* then batch-load the rest */
-      for (let i = 1; i < FRAME_COUNT; i++) {
-        const img = new Image();
-        img.src = frameUrl(i);
-        images[i] = img;
+      /* Batch-load remaining frames in chunks of 8 during idle periods.
+         This avoids flooding the network with 143 simultaneous requests
+         and keeps the main thread free for the preloader animation. */
+      let next = 1;
+      function loadBatch() {
+        const end = Math.min(next + 8, FRAME_COUNT);
+        for (; next < end; next++) {
+          const img = new Image();
+          img.src = frameUrl(next);
+          images[next] = img;
+        }
+        if (next < FRAME_COUNT) {
+          if (typeof requestIdleCallback !== "undefined") {
+            requestIdleCallback(loadBatch, { timeout: 300 });
+          } else {
+            setTimeout(loadBatch, 50);
+          }
+        }
+      }
+
+      if (typeof requestIdleCallback !== "undefined") {
+        requestIdleCallback(loadBatch, { timeout: 300 });
+      } else {
+        setTimeout(loadBatch, 50);
       }
     };
     images[0] = first;

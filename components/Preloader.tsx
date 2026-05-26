@@ -13,7 +13,7 @@ const STAGES = [
 /* ── Ambient particles ── */
 function Particles() {
   const pts = useMemo(() =>
-    Array.from({ length: 28 }, (_, i) => ({
+    Array.from({ length: 14 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
