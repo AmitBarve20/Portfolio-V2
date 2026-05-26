@@ -22,9 +22,24 @@ interface Project {
   accent: string;
   glowRgb: string;
   href: string;
+  cta?: string;
 }
 
 const PROJECTS: Project[] = [
+  {
+    id: "Doot",
+    index: "",
+    title: "Doot",
+    subtitle: "",
+    tag: "AI-POWERED EMAIL AUTOMATION PLATFORM",
+    year: "",
+    description:
+      "Designed an AI-driven email automation platform that enables users to create campaigns, generate personalized email templates, and send customized emails at scale through intelligent automation workflows.",
+    accent: "#22c55e",
+    glowRgb: "34,197,94",
+    href: "https://main.d2sfg7151tie0h.amplifyapp.com/",
+    cta: "View Platform",
+  },
   {
     id: "bondxe",
     index: "",
@@ -50,6 +65,19 @@ const PROJECTS: Project[] = [
     accent: "#d4a017",
     glowRgb: "212,160,23",
     href: "https://www.behance.net/gallery/228201027/MirrorTrade-Copy-trading-Platform-UIUx-case-study",
+  },
+  {
+    id: "match-scheduling",
+    index: "",
+    title: "Scheduling System",
+    subtitle: "",
+    tag: "SPORTS SCHEDULING Dashboard",
+    year: "",
+    description:
+      "I designed a grid-based scheduling system that makes conflicts visually obvious, enables drag-and-drop assignment, and provides auto-scheduling with human oversight.",
+    accent: "#8b5cf6",
+    glowRgb: "139,92,246",
+    href: "#",
   },
 ];
 
@@ -81,6 +109,29 @@ function MirrorTradeVisual() {
   );
 }
 
+function DootVisual() {
+  return (
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+      <img
+        src="/Doot.gif"
+        alt="Doot app preview"
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      />
+    </div>
+  );
+}
+
+function MatchSchedulingVisual() {
+  return (
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+      <img
+        src="/Match%20Scheduling.gif"
+        alt="Match Scheduling System preview"
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      />
+    </div>
+  );
+}
 /* ── Project card ─────────────────────────────────────────────────── */
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -190,7 +241,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           }}
         >
           <div style={{ position: "absolute", inset: 0 }}>
-            {project.id === "bondxe" ? <BondXeVisual /> : <MirrorTradeVisual />}
+            {project.id === "bondxe" ? (
+              <BondXeVisual />
+            ) : project.id === "Doot" ? (
+              <DootVisual />
+            ) : project.id === "match-scheduling" ? (
+              <MatchSchedulingVisual />
+            ) : (
+              <MirrorTradeVisual />
+            )}
           </div>
 
           {/* Gradient fade into card body */}
@@ -342,7 +401,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 letterSpacing: "0.08em",
               }}
             >
-              View Case Study
+              {project.cta ?? "View Case Study"}
             </span>
 
             {/* CTA arrow circle */}
