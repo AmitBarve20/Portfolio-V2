@@ -27,9 +27,9 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
-    id: "Doot",
+    id: "Stynar",
     index: "",
-    title: "Doot",
+    title: "Stynar",
     subtitle: "",
     tag: "AI-POWERED EMAIL AUTOMATION PLATFORM",
     year: "",
@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
       "Designed an AI-driven email automation platform that enables users to create campaigns, generate personalized email templates, and send customized emails at scale through intelligent automation workflows.",
     accent: "#22c55e",
     glowRgb: "34,197,94",
-    href: "https://main.d2sfg7151tie0h.amplifyapp.com/",
+    href: "https://stynar.com/",
     cta: "View Platform",
   },
   {
@@ -147,7 +147,7 @@ function MirrorTradeVisual() {
   );
 }
 
-function DootVisual() {
+function StynarVisual() {
   return (
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
       <LazyVideo src="/Doot.webm" />
@@ -273,8 +273,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <div style={{ position: "absolute", inset: 0 }}>
             {project.id === "bondxe" ? (
               <BondXeVisual />
-            ) : project.id === "Doot" ? (
-              <DootVisual />
+            ) : project.id === "Stynar" ? (
+              <StynarVisual />
             ) : project.id === "match-scheduling" ? (
               <MatchSchedulingVisual />
             ) : (
@@ -574,17 +574,18 @@ export default function SelectedWork() {
           transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontSize: "clamp(3rem, 7vw, 8.5rem)",
-            fontWeight: 800,
-            lineHeight: 0.9,
-            letterSpacing: "-0.03em",
+            fontWeight: 900,
+            lineHeight: 0.88,
+            letterSpacing: "-0.05em",
             color: "#fff",
+            fontStretch: "condensed",
           }}
         >
           FEATURED
           <br />
           <span
             style={{
-              color: "transparent",
+              color: "#0a0a0a",
               WebkitTextStroke: "1.5px rgba(255,255,255,0.2)",
             }}
           >

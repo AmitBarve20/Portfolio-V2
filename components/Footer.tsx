@@ -18,20 +18,18 @@ export default function Footer() {
           style={{ color: "var(--accent)" }}>
           Get In Touch
         </p>
+        <p className="text-sm tracking-[0.15em] uppercase text-white/30 mb-3 font-medium">
+          Let&apos;s work together
+        </p>
         <a
           href="mailto:amitbarve2003@gmail.com"
-          className="group inline-flex items-end gap-4"
+          className="group inline-block hover:opacity-80 transition-opacity duration-300"
         >
           <span
-            className="font-black leading-none tracking-[-0.04em] text-white/10 hover:text-white transition-colors duration-500 block"
-            style={{ fontSize: "clamp(2.5rem, 9vw, 8rem)" }}
+            className="font-black leading-none tracking-[-0.04em] text-white block"
+            style={{ fontSize: "clamp(2rem, 6vw, 6rem)" }}
           >
-            Let&apos;s work
-            <br />
-            <span className="text-white group-hover:text-white/80 transition-colors">
-              together
-            </span>
-            <span style={{ color: "var(--accent)" }}> :)</span>
+            amitbarve2003@gmail.com<span style={{ color: "var(--accent)" }}> :)</span>
           </span>
         </a>
       </div>
