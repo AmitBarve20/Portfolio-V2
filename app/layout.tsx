@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Bridging design and engineering. Building cinematic digital experiences that matter.",
   openGraph: {
-    title: "Amit Barve — Creative Developer",
+    title: "Amit Barve — Creative Designer",
     description: "Building cinematic digital experiences.",
     type: "website",
   },
